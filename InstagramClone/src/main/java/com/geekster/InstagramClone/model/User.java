@@ -17,6 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
     @Column(nullable = false)
     @NotEmpty
     private String firstName;
@@ -38,7 +39,7 @@ public class User {
     @Column(nullable = false)
     @Past // check by testing/passing future date
     @NotNull
-    private LocalDate dOB;
+    private LocalDate dob;
 
     @Column(unique = true , nullable = false)
     @Email
@@ -50,7 +51,6 @@ public class User {
     private String phoneNumber;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-     private boolean isBlueTicked;// this should not be exposed to user : Hint : DTO
-
+     private boolean blueTicked;
 
 }

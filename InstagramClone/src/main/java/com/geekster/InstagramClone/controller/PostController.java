@@ -1,5 +1,6 @@
 package com.geekster.InstagramClone.controller;
 
+import com.geekster.InstagramClone.dto.PostOutput;
 import com.geekster.InstagramClone.model.Post;
 import com.geekster.InstagramClone.model.User;
 import com.geekster.InstagramClone.service.PostService;
@@ -45,9 +46,9 @@ public class PostController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Post>> getAllPosts(@RequestParam String email , @RequestParam String token){
+    public ResponseEntity<List<PostOutput>> getAllPosts(@RequestParam String email , @RequestParam String token){
         HttpStatus status;
-        List<Post> postList = null;
+        List<PostOutput> postList = null;
         if(authService.authenticate(email,token))
         {
             postList = postService.getAllPosts(token);
@@ -59,7 +60,7 @@ public class PostController {
             status = HttpStatus.FORBIDDEN;
         }
 
-        return new ResponseEntity<List<Post>>(postList , status);
+        return new ResponseEntity<List<PostOutput>>(postList , status);
     }
 
     @GetMapping("/{postId}/likeCount")

@@ -42,7 +42,6 @@ public class UserService {
     @Autowired TokenService tokenService;
     public SignUpOutput signUp(User signUpDto) {
 
-
         //check if user exists or not based on email
         User user = userRepo.findFirstByEmail(signUpDto.getEmail());
 
@@ -50,6 +49,8 @@ public class UserService {
         {
             throw new IllegalStateException("Instagram user already exists!!!!...sign in instead");
         }
+
+
 
 //      encryption
         String encryptedPassword = null;

@@ -1,4 +1,4 @@
-package com.example.InstagramClone;
+package com.geekster.InstagramClone;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

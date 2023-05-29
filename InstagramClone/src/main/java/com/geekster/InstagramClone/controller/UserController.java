@@ -6,6 +6,7 @@ import com.geekster.InstagramClone.dto.SignUpOutput;
 import com.geekster.InstagramClone.model.PostLike;
 import com.geekster.InstagramClone.model.User;
 import com.geekster.InstagramClone.repository.IFollowingRepo;
+import com.geekster.InstagramClone.service.OtpAuthenticationService;
 import com.geekster.InstagramClone.service.TokenService;
 import com.geekster.InstagramClone.service.UserService;
 import jakarta.validation.Valid;
@@ -28,9 +29,21 @@ public class UserController {
     @Autowired
     IFollowingRepo followRepo;
 
+    @Autowired
+    OtpAuthenticationService otpAuthenticationService;
+
     @PostMapping("/signup")
-    public SignUpOutput signUp(@Valid @RequestBody User signUpDto){
-        return userService.signUp(signUpDto);
+    public ResponseEntity<SignUpOutput> signUp(@Valid @RequestBody User signUpDto, @RequestParam String token){
+        HttpStatus status;
+        SignUpOutput output = null;
+        if ( otpAuthenticationService.authenticateToken(signUpDto, token) ) {
+            output = userService.signUp(signUpDto);
+            status = HttpStatus.OK;
+        }
+        else {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<SignUpOutput>(output,status);
     }
 
     @PostMapping("/signin")
@@ -103,7 +116,6 @@ public class UserController {
         userService.like(postLike);
 
     }
-
 
 
 

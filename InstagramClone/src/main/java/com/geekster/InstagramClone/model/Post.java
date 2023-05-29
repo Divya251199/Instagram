@@ -2,6 +2,7 @@ package com.geekster.InstagramClone.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,7 +31,7 @@ public class Post {
     private String location;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)// remove this ...not needed...why ??
+    @ManyToOne(fetch = FetchType.LAZY)// remove this ...not needed
     @JoinColumn(nullable = false , name = "fk_user_ID")
     private User user;
 
